@@ -54,12 +54,13 @@ stack_t *push(stack_t **stack, int n)
 
 int pall(stack_t **stack)
 {
+	stack_t *list = *stack;
 	int i = 0;
 
-	while ((*stack) != NULL)
+	while (list != NULL)
 	{
-		printf("%d\n", (*stack)->n);
-		(*stack) = (*stack)->next;
+		printf("%d\n", list->n);
+		list = list->next;
 		i += 1;
 	}
 	return (i);
