@@ -68,3 +68,27 @@ stack_t *pint(stack_t **stack)
 	printf("%d\n", node->n);
 	return (node);
 }
+
+/**
+ * pop - removes the top element of the stack
+ * @stack: stack
+ * Return: nothing
+*/
+
+void pop(stack_t **stack)
+{
+	stack_t *node = *stack;
+
+	if (*stack == NULL)
+		return;
+
+	if (node->next == NULL)
+	{
+		*stack = NULL;
+		return;
+	}
+
+	*stack = (*stack)->next;
+	(*stack)->prev = NULL;
+	free(node);
+}

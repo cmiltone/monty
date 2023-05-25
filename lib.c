@@ -28,6 +28,9 @@ void exec_op(stack_t **stack, command_t *cmd, int line_no)
 			fprintf(stderr, "L%d: can't pint, stack empty\n", line_no);
 			exit(EXIT_FAILURE);
 		}
+	} else if (strcmp(opcode, "pop") == 0)
+	{
+		pop(stack);
 	}
 }
 
@@ -51,7 +54,8 @@ command_t *parse(char *opcode, char *arg, int line_no)
 
 	if (strcmp(opcode, "push") != 0 &&
 		strcmp(opcode, "pall") != 0 &&
-		strcmp(opcode, "pint") != 0)
+		strcmp(opcode, "pint") != 0 &&
+		strcmp(opcode, "pop") != 0)
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", line_no, opcode);
 		exit(EXIT_FAILURE);

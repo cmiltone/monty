@@ -57,7 +57,7 @@ void exec_op(stack_t **stack, command_t *cmd, int line_no);
 stack_t *push(stack_t **stack, int n);
 int pall(stack_t **stack);
 stack_t *pint(stack_t **stack);
-stack_t *pop(stack_t **stack);
+void pop(stack_t **stack);
 command_t *parse(char *opcode, char * arg, int line_no);
 void monty(char *filename, stack_t **stack);
 
