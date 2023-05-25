@@ -53,8 +53,10 @@ typedef struct command_s
 	int arg;
 } command_t;
 
-void exec_op(stack_t *stack, command_t *cmd);
+void exec_op(stack_t **stack, command_t *cmd);
+stack_t *push(stack_t **stack, int n);
+int pall(stack_t **stack);
 command_t *parse(char *opcode, char * arg, int line_no);
-void monty(char *filename, stack_t *stack);
+void monty(char *filename, stack_t **stack);
 
 #endif

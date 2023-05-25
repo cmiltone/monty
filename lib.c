@@ -9,43 +9,60 @@
  * Return: void
 */
 
-void exec_op(stack_t *stack, command_t *cmd)
+void exec_op(stack_t **stack, command_t *cmd)
+{
+  char *opcode = cmd->opcode;
+
+  if (strcmp(opcode, "push") == 0)
+  {
+    push(stack, cmd->arg);
+  } else if (strcmp(opcode, "pall") == 0)
+  {
+    pall(stack);
+  }
+}
+
+/**
+ * push - adds item to start of stack
+ * @stack: list
+ * @n: integer
+ * Return: node added
+*/
+stack_t *push(stack_t **stack, int n)
 {
   stack_t *node = malloc(sizeof(stack_t));
-  char *opcode = cmd->opcode;
-  int n = cmd->arg;
 
   if (node == NULL)
   {
     fprintf(stderr, "Error: malloc failed\n");
     exit(EXIT_FAILURE);
   }
+  node->n = n;
+  node->next = (*stack);
 
-  if (strcmp(opcode, "push") == 0)
+  if ((*stack) != NULL)
+    (*stack)->prev = node;
+  (*stack) = node;
+  
+  return (node);
+}
+
+/**
+ * pall - prints data items in stack
+ * @stack: list
+ * Return: number of items printed
+*/
+
+int pall(stack_t **stack)
+{
+  int i = 0;
+  while ((*stack) != NULL)
   {
-    node->n = n;
-    node->next = NULL;
-
-    if (stack == NULL)
-    {
-      stack = node;
-    } else
-    {
-      while (stack->next != NULL)
-      {
-        stack = stack->next;
-      }
-
-      node->prev = stack;
-      stack->next = node;
-    }
-  } else if (strcmp(opcode, "pall") == 0)
-  {
-    while (stack != NULL)
-    {
-      stack = stack->next;
-    }
+    printf("%d\n", (*stack)->n);
+    (*stack) = (*stack)->next;
+    i += 1;
   }
+  return (i);
 }
 
 /**
@@ -85,18 +102,12 @@ command_t *parse(char *opcode, char *arg, int line_no)
  * @stack: the stack
  * Return: nothing
 */
-void monty(char *filename, stack_t *stack)
+void monty(char *filename, stack_t **stack)
 {
   char line[MAX_LINE_SIZE], *op, *arg;
   int i = 1;
   FILE *file;
   command_t *cmd;
-
-  /*if (stack == NULL)
-  {
-    fprintf(stderr, "Error: malloc failed\n");
-    exit(EXIT_FAILURE);
-  }*/
 
   file = fopen(filename, "r");
 
@@ -111,10 +122,9 @@ void monty(char *filename, stack_t *stack)
     fgets(line, MAX_LINE_SIZE, file);
     op = strtok(line, " \n");
     arg = strtok(NULL, " \n");
-    cmd = parse(op, arg, i);/*
-    printf("cmd: %s\n", cmd->opcode);*/
+    cmd = parse(op, arg, i);
 
-    exec_op(stack, cmd);/**/
+    exec_op(stack, cmd);
     i += 1;
     if (feof(file))
       break;
