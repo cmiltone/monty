@@ -18,6 +18,9 @@ void exec_op(stack_t **stack, command_t *cmd)
 	} else if (strcmp(opcode, "pall") == 0)
 	{
 		pall(stack);
+	} else if (strcmp(opcode, "pint") == 0)
+	{
+		pint(stack);
 	}
 }
 
@@ -74,6 +77,21 @@ int pall(stack_t **stack)
  * Return: valid command with arg
 */
 
+/**
+ * pint - prints the value at the top of the stack
+ * @stack: the stack
+ * Return: node at the top
+*/
+
+stack_t *pint(stack_t **stack)
+{
+	stack_t *node = *stack;
+
+	printf("%d\n", node->n);
+	return (node);
+}
+
+
 command_t *parse(char *opcode, char *arg, int line_no)
 {
 	command_t *cmd = malloc(sizeof(command_t));
@@ -84,7 +102,9 @@ command_t *parse(char *opcode, char *arg, int line_no)
 		exit(EXIT_FAILURE);
 	}
 
-	if (strcmp(opcode, "push") != 0 && strcmp(opcode, "pall") != 0)
+	if (strcmp(opcode, "push") != 0 &&
+		strcmp(opcode, "pall") != 0 &&
+		strcmp(opcode, "pint") != 0)
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", line_no, opcode);
 		exit(EXIT_FAILURE);

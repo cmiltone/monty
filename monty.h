@@ -56,6 +56,7 @@ typedef struct command_s
 void exec_op(stack_t **stack, command_t *cmd);
 stack_t *push(stack_t **stack, int n);
 int pall(stack_t **stack);
+stack_t *pint(stack_t **stack);
 command_t *parse(char *opcode, char * arg, int line_no);
 void monty(char *filename, stack_t **stack);
 
