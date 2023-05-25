@@ -113,12 +113,11 @@ void monty(char *filename, stack_t **stack)
 	}
 }
 
-
 /**
  * nop - does nothing
  * Return: nuthing
 */
 
-void nop() {
-	return;
+void nop(void)
+{
 }
