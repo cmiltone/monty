@@ -31,13 +31,13 @@ void exec_op(stack_t *stack, command_t *cmd)
       stack = node;
     } else
     {
-      while (stack != NULL)
+      while (stack->next != NULL)
       {
         stack = stack->next;
       }
 
       node->prev = stack;
-      stack = node;/**/
+      stack->next = node;
     }
   } else if (strcmp(opcode, "pall") == 0)
   {
