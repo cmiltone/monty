@@ -38,8 +38,8 @@ void exec_op(stack_t **stack, command_t *cmd, int line_no)
 		}
 	} else if (strcmp(opcode, "nop") == 0)
 	{
-		nop(stack);
-	} 
+		nop();
+	}
 }
 
 /**
