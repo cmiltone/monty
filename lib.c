@@ -3,14 +3,16 @@
 /**
  * exec_op - executes operations
  * @stack: stack
- * @cmd: command
+ * @cmd: command,
+ * @line_no: integer
  *
  * Return: void
 */
 
-void exec_op(stack_t **stack, command_t *cmd)
+void exec_op(stack_t **stack, command_t *cmd, int line_no)
 {
 	char *opcode = cmd->opcode;
+	stack_t *node;
 
 	if (strcmp(opcode, "push") == 0)
 	{
@@ -20,7 +22,12 @@ void exec_op(stack_t **stack, command_t *cmd)
 		pall(stack);
 	} else if (strcmp(opcode, "pint") == 0)
 	{
-		pint(stack);
+		node = pint(stack);
+		if (node == NULL)
+		{
+			fprintf(stderr, "L%d: can't pint, stack empty\n", line_no);
+			exit(EXIT_FAILURE);
+		}
 	}
 }
 
@@ -57,8 +64,13 @@ stack_t *push(stack_t **stack, int n)
 
 int pall(stack_t **stack)
 {
-	stack_t *list = *stack;
+	stack_t *list;
 	int i = 0;
+
+	if ((*stack) == NULL)
+		return (0);
+
+	list = *stack;
 
 	while (list != NULL)
 	{
@@ -85,7 +97,12 @@ int pall(stack_t **stack)
 
 stack_t *pint(stack_t **stack)
 {
-	stack_t *node = *stack;
+	stack_t *node;
+
+	if ((*stack) == NULL)
+		return (NULL);
+
+	node = *stack;
 
 	printf("%d\n", node->n);
 	return (node);
@@ -146,7 +163,7 @@ void monty(char *filename, stack_t **stack)
 		arg = strtok(NULL, " \n");
 		cmd = parse(op, arg, i);
 
-		exec_op(stack, cmd);
+		exec_op(stack, cmd, i);
 		i += 1;
 		if (feof(file))
 			break;

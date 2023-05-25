@@ -53,7 +53,7 @@ typedef struct command_s
 	int arg;
 } command_t;
 
-void exec_op(stack_t **stack, command_t *cmd);
+void exec_op(stack_t **stack, command_t *cmd, int line_no);
 stack_t *push(stack_t **stack, int n);
 int pall(stack_t **stack);
 stack_t *pint(stack_t **stack);
