@@ -3,8 +3,7 @@
 /**
  * exec_op - executes operations
  * @stack: stack
- * @opcode: string
- * @n: string
+ * @cmd: command
  *
  * Return: void
 */
@@ -56,6 +55,7 @@ stack_t *push(stack_t **stack, int n)
 int pall(stack_t **stack)
 {
 	int i = 0;
+
 	while ((*stack) != NULL)
 	{
 		printf("%d\n", (*stack)->n);
@@ -67,7 +67,8 @@ int pall(stack_t **stack)
 
 /**
  * parse - converts input to valid command
- * @line: input string
+ * @opcode: input string
+ * @arg: argument
  * @line_no: line number
  * Return: valid command with arg
 */
