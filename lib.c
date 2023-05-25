@@ -25,12 +25,17 @@ void exec_op(stack_t **stack, command_t *cmd, int line_no)
 		node = pint(stack);
 		if (node == NULL)
 		{
-			fprintf(stderr, "L%d: can't pint, stack empty\n", line_no);
+			fprintf(stderr, "L%d: can't pop an empty stack\n", line_no);
 			exit(EXIT_FAILURE);
 		}
 	} else if (strcmp(opcode, "pop") == 0)
 	{
-		pop(stack);
+		node = pop(stack);
+		if (node == NULL)
+		{
+			fprintf(stderr, "L%d: can't pop an empty stack\n", line_no);
+			exit(EXIT_FAILURE);
+		}
 	}
 }
 

@@ -72,23 +72,25 @@ stack_t *pint(stack_t **stack)
 /**
  * pop - removes the top element of the stack
  * @stack: stack
- * Return: nothing
+ * Return: poped node
 */
 
-void pop(stack_t **stack)
+stack_t *pop(stack_t **stack)
 {
 	stack_t *node = *stack;
 
 	if (*stack == NULL)
-		return;
+		return (NULL);
 
 	if (node->next == NULL)
 	{
 		*stack = NULL;
-		return;
+		return (node);
 	}
 
 	*stack = (*stack)->next;
 	(*stack)->prev = NULL;
 	free(node);
+
+	return (node);
 }
