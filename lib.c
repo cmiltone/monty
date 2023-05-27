@@ -121,3 +121,27 @@ void monty(char *filename, stack_t **stack)
 void nop(void)
 {
 }
+
+/**
+ * count - counts items in stack
+ * @stack: stack
+ * Return: int
+*/
+
+int count(stack_t **stack)
+{
+	stack_t *list;
+	int i = 0;
+
+	if ((*stack) == NULL)
+		return (0);
+
+	list = *stack;
+
+	while (list != NULL)
+	{
+		list = list->next;
+		i += 1;
+	}
+	return (i);
+}

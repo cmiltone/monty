@@ -58,6 +58,8 @@ stack_t *push(stack_t **stack, int n);
 int pall(stack_t **stack);
 stack_t *pint(stack_t **stack);
 stack_t *pop(stack_t **stack);
+void nop();
+int count(stack_t **stack);
 command_t *parse(char *opcode, char * arg, int line_no);
 void monty(char *filename, stack_t **stack);
 
